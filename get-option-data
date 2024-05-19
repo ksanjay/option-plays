@@ -1,0 +1,27 @@
+import yfinance as yf
+
+def get_option_data(ticker):
+    # Get the option chain for the given ticker
+    stock = yf.Ticker(ticker)
+
+    # Get options expirations
+    expirations = stock.options
+
+    # Get options for each expiration
+    for expiration in expirations:
+        option_chain = stock.option_chain(expiration)
+
+        # Get calls and puts
+        calls = option_chain.calls
+        puts = option_chain.puts
+
+        # You can filter the calls and puts dataframes based on your criteria
+        # For example, you might be interested in options with a certain strike price or expiration date
+
+        # Print the calls and puts
+        print(f"Calls for {ticker} expiring on {expiration}:\n", calls)
+        print(f"Puts for {ticker} expiring on {expiration}:\n", puts)
+
+# Call the function with the ticker you are interested in
+ticker = input("Enter the stock ticker: ")
+get_option_data(ticker)
